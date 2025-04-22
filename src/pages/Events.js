@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -16,17 +15,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Container,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LicenseInfo } from '@mui/x-license';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SearchIcon from '@mui/icons-material/Search';
-
-// Set the license key for MUI X v8
-LicenseInfo.setLicenseKey(
-  'YOUR_LICENSE_KEY'
-);
 
 const Events = () => {
   const navigate = useNavigate();
@@ -58,7 +52,6 @@ const Events = () => {
   }, []);
 
   // Get unique values for filters
-  const dates = [...new Set(events.map(event => event.date))];
   const presenters = [...new Set(events.map(event => event.presenter))];
 
   const filteredEvents = events.filter((event) => {
@@ -96,7 +89,7 @@ const Events = () => {
   }
 
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Events
       </Typography>
@@ -149,7 +142,7 @@ const Events = () => {
           No events found matching the selected criteria.
         </Typography>
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
@@ -185,7 +178,7 @@ const Events = () => {
           </Table>
         </TableContainer>
       )}
-    </Box>
+    </Container>
   );
 };
 

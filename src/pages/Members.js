@@ -12,8 +12,19 @@ import {
   TextField,
   InputAdornment,
   Chip,
+  ToggleButton,
+  ToggleButtonGroup,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 const Members = () => {
   const [members, setMembers] = useState([]);
@@ -21,6 +32,9 @@ const Members = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [viewMode, setViewMode] = useState('grid');
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,14 +57,39 @@ const Members = () => {
   }, []);
 
   useEffect(() => {
-    const filtered = members.filter(member =>
+    let filtered = members.filter(member =>
       member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.school.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.research.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Sort the filtered results
+    filtered.sort((a, b) => {
+      const aValue = a[sortBy].toLowerCase();
+      const bValue = b[sortBy].toLowerCase();
+      return sortOrder === 'asc' 
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    });
+
     setFilteredMembers(filtered);
-  }, [searchTerm, members]);
+  }, [searchTerm, members, sortBy, sortOrder]);
+
+  const handleViewModeChange = (event, newViewMode) => {
+    if (newViewMode !== null) {
+      setViewMode(newViewMode);
+    }
+  };
+
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(column);
+      setSortOrder('asc');
+    }
+  };
 
   if (loading) {
     return (
@@ -74,66 +113,172 @@ const Members = () => {
         Our Members
       </Typography>
 
-      <TextField
-        fullWidth
-        variant="outlined"
-        placeholder="Search members..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        sx={{ mb: 4 }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
+      <Box sx={{ display: 'flex', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Search members..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ flex: 1, minWidth: 200 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <ToggleButtonGroup
+          value={viewMode}
+          exclusive
+          onChange={handleViewModeChange}
+          aria-label="view mode"
+        >
+          <ToggleButton value="grid" aria-label="grid view">
+            <ViewModuleIcon />
+          </ToggleButton>
+          <ToggleButton value="list" aria-label="list view">
+            <ViewListIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
 
-      <Grid container spacing={4}>
-        {filteredMembers.map((member) => (
-          <Grid item xs={12} sm={6} md={4} key={member.id}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" gutterBottom>
-                  {member.name}
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-                  {member.role}
-                </Typography>
-                <Typography variant="body2" paragraph>
-                  {member.school}
-                </Typography>
-                <Chip
-                  label={member.research}
-                  size="small"
-                  sx={{ mb: 2 }}
-                />
-              </CardContent>
-              <CardActions>
-                <Button
-                  component={Link}
-                  to={`/members/${member.id}`}
-                  size="small"
-                  color="primary"
-                >
-                  View Details
-                </Button>
-                {member.website && (
-                  <Button
-                    href={member.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
+      {viewMode === 'grid' ? (
+        <Grid container spacing={3} justifyContent="center">
+          {filteredMembers.map((member) => (
+            <Grid item xs={12} sm={6} md={3} key={member.id}>
+              <Card sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                flexDirection: 'column',
+                border: '1px solid',
+                borderColor: 'divider',
+                backgroundColor: 'background.paper'
+              }}>
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" gutterBottom>
+                    {member.name}
+                  </Typography>
+                  <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+                    {member.role}
+                  </Typography>
+                  <Typography variant="body2" paragraph>
+                    {member.school}
+                  </Typography>
+                  <Chip
+                    label={member.research}
                     size="small"
+                    sx={{ mb: 2 }}
+                  />
+                </CardContent>
+                <CardActions>
+                  <Button
+                    component={Link}
+                    to={`/members/${member.id}`}
+                    size="small"
+                    color="primary"
                   >
-                    Visit Website
+                    View Details
                   </Button>
-                )}
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                  {member.website && (
+                    <Button
+                      href={member.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      size="small"
+                    >
+                      Visit Website
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortBy === 'name'}
+                    direction={sortBy === 'name' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('name')}
+                  >
+                    Name
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortBy === 'role'}
+                    direction={sortBy === 'role' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('role')}
+                  >
+                    Role
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortBy === 'school'}
+                    direction={sortBy === 'school' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('school')}
+                  >
+                    School
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortBy === 'research'}
+                    direction={sortBy === 'research' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('research')}
+                  >
+                    Research Area
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredMembers.map((member) => (
+                <TableRow key={member.id}>
+                  <TableCell>{member.name}</TableCell>
+                  <TableCell>{member.role}</TableCell>
+                  <TableCell>{member.school}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={member.research}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      component={Link}
+                      to={`/members/${member.id}`}
+                      size="small"
+                      color="primary"
+                      sx={{ mr: 1 }}
+                    >
+                      View Details
+                    </Button>
+                    {member.website && (
+                      <Button
+                        href={member.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                      >
+                        Visit Website
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Container>
   );
 };

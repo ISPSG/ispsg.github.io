@@ -1,13 +1,22 @@
 import React from 'react';
-import { Typography, Box, Paper } from '@mui/material';
+import { Typography, Box, Container } from '@mui/material';
 
 const Home = () => {
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography variant="h3" component="h1" gutterBottom>
         Welcome to Our Paper Sharing Group 
       </Typography>
-      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+      <Box 
+        sx={{ 
+          p: 3, 
+          mb: 4,
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 1,
+          backgroundColor: 'background.paper'
+        }}
+      >
         <Typography variant="h5" gutterBottom>
           About Us
         </Typography>
@@ -15,8 +24,16 @@ const Home = () => {
           We are a group of researchers and enthusiasts who meet regularly to discuss and analyze recent papers in our field.
           Our goal is to foster a deeper understanding of cutting-edge research and promote collaborative learning.
         </Typography>
-      </Paper>
-      <Paper elevation={3} sx={{ p: 3 }}>
+      </Box>
+      <Box 
+        sx={{ 
+          p: 3,
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 1,
+          backgroundColor: 'background.paper'
+        }}
+      >
         <Typography variant="h5" gutterBottom>
           What We Do
         </Typography>
@@ -26,8 +43,8 @@ const Home = () => {
           • Knowledge sharing
           • Research networking
         </Typography>
-      </Paper>
-    </Box>
+      </Box>
+    </Container>
   );
 };
 

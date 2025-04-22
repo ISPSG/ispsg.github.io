@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   Box,
-  Paper,
   Typography,
   Grid,
-  Chip,
   Link as MuiLink,
   Divider,
-  Card,
-  CardContent,
+  Button,
+  Container,
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MemberDetail = () => {
   const { memberId } = useParams();
@@ -58,69 +57,66 @@ const MemberDetail = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', p: 3 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Button
+        component={Link}
+        to="/members"
+        startIcon={<ArrowBackIcon />}
+        sx={{ mb: 3 }}
+      >
+        Back to Members
+      </Button>
+
+      <Box 
+        sx={{ 
+          p: 4,
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 1,
+          backgroundColor: 'background.paper'
+        }}
+      >
         <Typography variant="h4" component="h1" gutterBottom>
           {member.name}
         </Typography>
         
-        <Grid container spacing={4}>
-          {/* Main Member Details */}
-          <Grid item xs={12} md={8}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Member Information</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Role</Typography>
-                  <Typography variant="body1">{member.role}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">School</Typography>
-                  <Typography variant="body1">{member.school}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Research Area</Typography>
-                  <Typography variant="body1">{member.research}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Website</Typography>
-                  <MuiLink href={member.website} target="_blank" rel="noopener noreferrer">
-                    Visit Website
-                  </MuiLink>
-                </Grid>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" gutterBottom>Member Information</Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="subtitle1" color="text.secondary">Role</Typography>
+              <Typography variant="body1">{member.role}</Typography>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="subtitle1" color="text.secondary">School</Typography>
+              <Typography variant="body1">{member.school}</Typography>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="subtitle1" color="text.secondary">Research Area</Typography>
+              <Typography variant="body1">{member.research}</Typography>
+            </Grid>
+            {member.website && (
+              <Grid item xs={12} sm={4}>
+                <Typography variant="subtitle1" color="text.secondary">Website</Typography>
+                <MuiLink href={member.website} target="_blank" rel="noopener noreferrer">
+                  Visit Website
+                </MuiLink>
               </Grid>
-            </Box>
-
-            <Divider sx={{ my: 4 }} />
-
-            {/* Bio Section */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Biography</Typography>
-              <Typography variant="body1" paragraph>
-                {member.bio}
-              </Typography>
-            </Box>
+            )}
           </Grid>
+        </Box>
 
-          {/* Sidebar */}
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>Quick Links</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <MuiLink href={member.website} target="_blank" rel="noopener noreferrer">
-                    Personal Website
-                  </MuiLink>
-                  <Link to="/members" style={{ textDecoration: 'none' }}>
-                    <Typography color="primary">Back to Members</Typography>
-                  </Link>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+        <Divider sx={{ my: 4 }} />
+
+        {/* Bio Section */}
+        <Box>
+          <Typography variant="h6" gutterBottom>Biography</Typography>
+          <Typography variant="body1" paragraph>
+            {member.bio}
+          </Typography>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
