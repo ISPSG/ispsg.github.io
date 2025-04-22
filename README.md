@@ -30,22 +30,70 @@ All team members contribute code changes via Pull Requests. Deployment is handle
     *   Before starting any new work, make sure your local main branch (or master, depending on your repository's naming convention) is up-to-date with the remote repository.
     *   `git checkout main`
     *   `git pull origin main`
-
 2.  **Create a New Branch:**
     *   Create a new branch off the main branch for your specific task (e.g., a new feature, bug fix). Use a descriptive name.
-    *   `git checkout -b feature/your-feature-name` or `git checkout -b bugfix/fix-description`
-
+    *   `git checkout -b feature/your-feature-name(e.g. git checkout -b feature/add-login-button)` 
+    *   `git checkout -b bugfix/fix-description(e.g. git checkout -b bugfix/fix-issue-1)`
 3.  **Make Your Code Changes:**
     *   Work on your task in this new branch. Write your code, add tests, update documentation, etc.
 
-4.  **Commit Your Changes:**
-    *   Commit your work frequently with clear, concise commit messages explaining what each commit does.
-    *   `git add .` (or add specific files)
-    *   `git commit -m "Add feature X"` or `git commit -m "Fix bug Y in component Z"`
+Sure! Here's the example-inclusive version in English:
 
-5.  **Push Your Branch to GitHub:**
-    *   Push your local branch to the remote repository on GitHub.
-    *   `git push origin feature/your-feature-name`
+---
+
+### 4. **Commit Your Changes:**
+
+After making some edits, commit your changes with clear, descriptive messages.
+
+**Example:**
+
+Suppose you added a login button in `App.js`. You would run:
+
+```bash
+git add App.js
+git commit -m "Add login button to homepage"
+```
+
+If you fixed a bug in `Login.js`, you might do:
+
+```bash
+git add Login.js
+git commit -m "Fix null pointer error in login validation"
+```
+
+**Summary:**  
+
+- To stage specific files:  
+
+  ```bash
+  git add <filename>  # e.g., git add App.js
+  ```
+
+- To commit with a message:  
+
+  ```bash
+  git commit -m "Your descriptive message"
+  ```
+
+---
+
+### 5. **Push Your Branch to GitHub:**
+
+Suppose your branch name is `feature/add-login-button`. You push it with:
+
+```bash
+git push origin feature/add-login-button
+```
+
+**Another example:**  
+If your branch is `bugfix/fix-login-error`, do:
+
+```bash
+git push origin bugfix/fix-login-error
+```
+
+---
+
 
 6.  **Create a Pull Request (PR):**
     *   Go to your repository page on GitHub.
@@ -71,12 +119,12 @@ All team members contribute code changes via Pull Requests. Deployment is handle
     *   **Important:** After your PR has been successfully reviewed, approved, and **merged into the main branch**, **Austin will handle the deployment process.**
     *   There is no need for individual team members to trigger or perform any deployment steps. Austin will take the updated code from the main branch and deploy it to the relevant environment(s) according to the team's deployment schedule or process.
 
-10. **Clean Up (Optional but Recommended):**
-    *   After your PR is merged, you can delete your feature/bugfix branch from the remote repository (GitHub usually provides a button for this on the merged PR page).
-    *   You can also delete the branch locally:
-        *   `git checkout main`
-        *   `git pull origin main` (to get the merged changes)
-        *   `git branch -d feature/your-feature-name`
+10.  **Clean Up (Optional but Recommended):**
+     *   After your PR is merged, you can delete your feature/bugfix branch from the remote repository (GitHub usually provides a button for this on the merged PR page).
+     *   You can also delete the branch locally:
+         *   `git checkout main`
+         *   `git pull origin main` (to get the merged changes)
+         *   `git branch -d feature/your-feature-name`
 
 This process ensures that all code changes are reviewed before integration and that deployments are managed centrally and consistently by Austin.
 
