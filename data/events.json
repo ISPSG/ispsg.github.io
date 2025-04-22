@@ -1,0 +1,84 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "date": "2024-03-15",
+      "title": "Attention Is All You Need",
+      "presenter": "John Smith",
+      "paperLink": "https://arxiv.org/abs/1706.03762",
+      "location": "Room 101"
+    },
+    {
+      "id": 2,
+      "date": "2024-03-22",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "presenter": "Sarah Johnson",
+      "paperLink": "https://arxiv.org/abs/1810.04805",
+      "location": "Room 102"
+    },
+    {
+      "id": 3,
+      "date": "2024-03-29",
+      "title": "Generative Adversarial Networks",
+      "presenter": "Michael Chen",
+      "paperLink": "https://arxiv.org/abs/1406.2661",
+      "location": "Room 103"
+    },
+    {
+      "id": 4,
+      "date": "2024-04-05",
+      "title": "Deep Residual Learning for Image Recognition",
+      "presenter": "Emily Davis",
+      "paperLink": "https://arxiv.org/abs/1512.03385",
+      "location": "Room 104"
+    },
+    {
+      "id": 5,
+      "date": "2024-04-12",
+      "title": "Neural Machine Translation by Jointly Learning to Align and Translate",
+      "presenter": "David Wilson",
+      "paperLink": "https://arxiv.org/abs/1409.0473",
+      "location": "Room 105"
+    },
+    {
+      "id": 6,
+      "date": "2024-04-19",
+      "title": "Long Short-Term Memory",
+      "presenter": "Lisa Anderson",
+      "paperLink": "https://www.bioinf.jku.at/publications/older/2604.pdf",
+      "location": "Room 106"
+    },
+    {
+      "id": 7,
+      "date": "2024-04-26",
+      "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+      "presenter": "Robert Taylor",
+      "paperLink": "https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf",
+      "location": "Room 107"
+    },
+    {
+      "id": 8,
+      "date": "2024-05-03",
+      "title": "ImageNet Classification with Deep Convolutional Neural Networks",
+      "presenter": "Jennifer Lee",
+      "paperLink": "https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf",
+      "location": "Room 108"
+    },
+    {
+      "id": 9,
+      "date": "2024-05-10",
+      "title": "Reinforcement Learning: An Introduction",
+      "presenter": "Thomas Brown",
+      "paperLink": "https://www.andrew.cmu.edu/course/10-703/textbook/BartoSutton.pdf",
+      "location": "Room 109"
+    },
+    {
+      "id": 10,
+      "date": "2024-05-17",
+      "title": "The Unreasonable Effectiveness of Recurrent Neural Networks",
+      "presenter": "Patricia White",
+      "paperLink": "http://karpathy.github.io/2015/05/21/rnn-effectiveness/",
+      "location": "Room 110"
+    }
+  ]
+} 
