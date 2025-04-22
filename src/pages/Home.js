@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography variant="h3" component="h1" gutterBottom>
-        Welcome to Our Paper Sharing Group 
+        IS Paper Sharing Group
       </Typography>
       <Box 
         sx={{ 
