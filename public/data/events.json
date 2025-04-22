@@ -11,7 +11,8 @@
       "location": "Room 101",
       "link": "https://meet.google.com/abc-defg-hij",
       "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.",
-      "participants": [3, 4, 5, 6]
+      "participants": [3, 4, 5, 6],
+      "tags": ["NLP", "Transformers", "Machine Translation"]
     },
     {
       "id": 2,
@@ -24,7 +25,8 @@
       "location": "Room 102",
       "link": "https://meet.google.com/klm-nopq-rst",
       "abstract": "We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications.",
-      "participants": [7, 8, 9, 10]
+      "participants": [7, 8, 9, 10],
+      "tags": ["NLP", "Language Models", "Pre-training"]
     },
     {
       "id": 3,
@@ -37,7 +39,8 @@
       "location": "Room 103",
       "link": "https://meet.google.com/uvw-xyza-bcd",
       "abstract": "We propose a new framework for estimating generative models via an adversarial process, in which we simultaneously train two models: a generative model G that captures the data distribution, and a discriminative model D that estimates the probability that a sample came from the training data rather than G. The training procedure for G is to maximize the probability of D making a mistake. This framework corresponds to a minimax two-player game. In the space of arbitrary functions G and D, a unique solution exists, with G recovering the training data distribution and D equal to 1/2 everywhere.",
-      "participants": [1, 2, 3, 4]
+      "participants": [1, 2, 3, 4],
+      "tags": ["GANs", "Computer Vision", "Generative Models"]
     },
     {
       "id": 4,
@@ -50,7 +53,8 @@
       "location": "Room 104",
       "link": "https://meet.google.com/efg-hijk-lmn",
       "abstract": "Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth.",
-      "participants": [5, 6, 7, 8]
+      "participants": [5, 6, 7, 8],
+      "tags": ["Computer Vision", "Deep Learning", "Neural Networks"]
     },
     {
       "id": 5,
@@ -63,7 +67,8 @@
       "location": "Room 105",
       "link": "https://meet.google.com/opq-rstu-vwx",
       "abstract": "Neural machine translation is a recently proposed approach to machine translation. Unlike the traditional statistical machine translation, the neural machine translation aims at building a single neural network that can be jointly tuned to maximize the translation performance. The models proposed recently for neural machine translation often belong to a family of encoder-decoders and consists of an encoder that encodes a source sentence into a fixed-length vector from which a decoder generates a translation.",
-      "participants": [9, 10, 1, 2]
+      "participants": [9, 10, 1, 2],
+      "tags": ["NLP", "Machine Translation", "Neural Networks"]
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
       "location": "Room 106",
       "link": "https://meet.google.com/yz-abcde-fgh",
       "abstract": "Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units.",
-      "participants": [3, 4, 5, 6]
+      "participants": [3, 4, 5, 6],
+      "tags": ["RNN", "Sequence Modeling", "Deep Learning"]
     },
     {
       "id": 7,
@@ -89,7 +95,8 @@
       "location": "Room 107",
       "link": "https://meet.google.com/ij-klmno-pqr",
       "abstract": "Deep neural nets with a large number of parameters are very powerful machine learning systems. However, overfitting is a serious problem in such networks. Large networks are also slow to use, making it difficult to deal with overfitting by combining the predictions of many different large neural nets at test time. Dropout is a technique for addressing this problem. The key idea is to randomly drop units (along with their connections) from the neural network during training. This prevents units from co-adapting too much.",
-      "participants": [7, 8, 9, 10]
+      "participants": [7, 8, 9, 10],
+      "tags": ["Deep Learning", "Regularization", "Neural Networks"]
     },
     {
       "id": 8,
@@ -98,11 +105,12 @@
       "title": "ImageNet Classification with Deep Convolutional Neural Networks",
       "presenter": "Jennifer Lee",
       "presenterBio": "Jennifer Lee is a Research Director at STU Labs, focusing on computer vision and deep learning. Her work on ImageNet classification has significantly advanced the field of visual recognition.",
-      "paperLink": "https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf",
+      "paperLink": "https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf",
       "location": "Room 108",
       "link": "https://meet.google.com/st-uvwxy-zab",
       "abstract": "We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5% and 17.0% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax.",
-      "participants": [1, 2, 3, 4]
+      "participants": [1, 2, 3, 4],
+      "tags": ["Computer Vision", "CNN", "Image Classification"]
     },
     {
       "id": 9,
@@ -115,7 +123,8 @@
       "location": "Room 109",
       "link": "https://meet.google.com/cd-efghi-jkl",
       "abstract": "Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.",
-      "participants": [5, 6, 7, 8]
+      "participants": [5, 6, 7, 8],
+      "tags": ["Reinforcement Learning", "AI", "Machine Learning"]
     },
     {
       "id": 10,
@@ -128,7 +137,8 @@
       "location": "Room 110",
       "link": "https://meet.google.com/mn-opqrs-tuv",
       "abstract": "Recurrent Neural Networks (RNNs) are popular models that have shown great promise in many NLP tasks. But despite their recent popularity I've only found a limited number of resources that thoroughly explain how RNNs work, and how to implement them. That's what this paper is about. It's a multi-part series that I plan to turn into a small book about Recurrent Neural Networks. In this first part we'll learn about the basic RNN model and its training algorithm, backpropagation through time.",
-      "participants": [9, 10, 1, 2]
+      "participants": [9, 10, 1, 2],
+      "tags": ["RNN", "NLP", "Deep Learning"]
     }
   ]
 } 

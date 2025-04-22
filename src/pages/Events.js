@@ -11,12 +11,10 @@ import {
   TextField,
   Typography,
   InputAdornment,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Container,
   Button,
+  Chip,
+  TableSortLabel,
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -32,7 +30,7 @@ const Events = () => {
   const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [presenterFilter, setPresenterFilter] = useState('');
+  const [sortOrder, setSortOrder] = useState('desc');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -53,9 +51,6 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  // Get unique values for filters
-  const presenters = [...new Set(events.map(event => event.presenter))];
-
   const filteredEvents = events.filter((event) => {
     const matchesSearch = Object.values(event).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
@@ -64,10 +59,14 @@ const Events = () => {
     const eventDate = new Date(event.date);
     const matchesDate = (!startDate || !endDate) || 
       (eventDate >= startDate && eventDate <= endDate);
-    
-    const matchesPresenter = !presenterFilter || event.presenter === presenterFilter;
 
-    return matchesSearch && matchesDate && matchesPresenter;
+    return matchesSearch && matchesDate;
+  });
+
+  const sortedEvents = filteredEvents.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
   const handleRowClick = (eventId) => {
@@ -78,7 +77,10 @@ const Events = () => {
     setSearchTerm('');
     setStartDate(null);
     setEndDate(null);
-    setPresenterFilter('');
+  };
+
+  const handleSort = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   if (loading) {
@@ -98,7 +100,7 @@ const Events = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Events
       </Typography>
@@ -109,7 +111,7 @@ const Events = () => {
           placeholder="Search events..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ flex: 1, minWidth: 200 }}
+          sx={{ flex: 2, minWidth: 300 }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -123,28 +125,15 @@ const Events = () => {
             label="Start Date"
             value={startDate}
             onChange={(newValue) => setStartDate(newValue)}
-            sx={{ minWidth: 200 }}
+            sx={{ minWidth: 180 }}
           />
           <DatePicker
             label="End Date"
             value={endDate}
             onChange={(newValue) => setEndDate(newValue)}
-            sx={{ minWidth: 200 }}
+            sx={{ minWidth: 180 }}
           />
         </LocalizationProvider>
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>Presenter</InputLabel>
-          <Select
-            value={presenterFilter}
-            label="Presenter"
-            onChange={(e) => setPresenterFilter(e.target.value)}
-          >
-            <MenuItem value="">All Presenters</MenuItem>
-            {presenters.map((presenter) => (
-              <MenuItem key={presenter} value={presenter}>{presenter}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <Button
           variant="outlined"
           startIcon={<ClearIcon />}
@@ -154,7 +143,7 @@ const Events = () => {
           Reset
         </Button>
       </Box>
-      {filteredEvents.length === 0 ? (
+      {sortedEvents.length === 0 ? (
         <Typography sx={{ textAlign: 'center', mt: 4 }}>
           No events found matching the selected criteria.
         </Typography>
@@ -163,14 +152,21 @@ const Events = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell>Presenter</TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Paper</TableCell>
+                <TableCell sx={{ width: '15%', whiteSpace: 'nowrap' }}>
+                  <TableSortLabel
+                    active={sortOrder === 'asc'}
+                    direction={sortOrder}
+                    onClick={handleSort}
+                  >
+                    Date
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell sx={{ width: '40%' }}>Title</TableCell>
+                <TableCell sx={{ width: '25%' }}>Tags</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredEvents.map((event) => (
+              {sortedEvents.map((event) => (
                 <TableRow 
                   key={event.id}
                   onClick={() => handleRowClick(event.id)}
@@ -181,13 +177,20 @@ const Events = () => {
                     },
                   }}
                 >
-                  <TableCell>{event.date}</TableCell>
-                  <TableCell>{event.presenter}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{event.date}</TableCell>
                   <TableCell>{event.title}</TableCell>
                   <TableCell>
-                    <a href={event.paperLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                      View Paper
-                    </a>
+                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                      {(event.tags || []).map((tag, index) => (
+                        <Chip
+                          key={index}
+                          label={tag}
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                        />
+                      ))}
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}

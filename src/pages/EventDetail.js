@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   Box,
   Paper,
@@ -10,10 +10,14 @@ import {
   Divider,
   Card,
   CardContent,
+  Button,
+  Container,
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const EventDetail = () => {
   const { eventId } = useParams();
+  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,99 +77,79 @@ const EventDetail = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', p: 3 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {event.title}
-        </Typography>
-        
-        <Grid container spacing={4}>
-          {/* Main Event Details */}
-          <Grid item xs={12} md={8}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Event Details</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Date</Typography>
-                  <Typography variant="body1">{event.date}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Time</Typography>
-                  <Typography variant="body1">{event.time || 'To be announced'}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Venue</Typography>
-                  <Typography variant="body1">{event.location}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="subtitle1" color="text.secondary">Link</Typography>
-                  <MuiLink href={event.link} target="_blank" rel="noopener noreferrer">
-                    Join Meeting
-                  </MuiLink>
-                </Grid>
-              </Grid>
-            </Box>
-
-            <Divider sx={{ my: 4 }} />
-
-            {/* Presenter Information */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Presenter</Typography>
-              <Typography variant="h5" gutterBottom>{event.presenter}</Typography>
-              <Typography variant="body1" paragraph>
-                {event.presenterBio || 'Bio information coming soon...'}
-              </Typography>
-            </Box>
-
-            <Divider sx={{ my: 4 }} />
-
-            {/* Abstract */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Abstract</Typography>
-              <Typography variant="body1" paragraph>
-                {event.abstract || 'Abstract coming soon...'}
-              </Typography>
-            </Box>
-
-            {/* Paper Link */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" gutterBottom>Paper</Typography>
-              <MuiLink href={event.paperLink} target="_blank" rel="noopener noreferrer">
-                View Paper
-              </MuiLink>
-            </Box>
-          </Grid>
-
-          {/* Sidebar with Participants */}
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>Participants</Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  {event.participants?.map((participantId) => {
-                    const member = getMemberById(participantId);
-                    return member ? (
-                      <Chip
-                        key={member.id}
-                        label={member.name}
-                        component={Link}
-                        to={`/members/${member.id}`}
-                        clickable
-                        sx={{ textDecoration: 'none' }}
-                      />
-                    ) : null;
-                  }) || (
-                    <Typography variant="body2" color="text.secondary">
-                      No participants listed yet
-                    </Typography>
-                  )}
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box sx={{ mb: 2 }}>
+        <Button
+          variant="text"
+          color="primary"
+          onClick={() => navigate('/events')}
+          startIcon={<ArrowBackIcon />}
+        >
+          Return to Events
+        </Button>
+      </Box>
+      {loading ? (
+        <Typography>Loading...</Typography>
+      ) : error ? (
+        <Typography color="error">{error}</Typography>
+      ) : event ? (
+        <Box>
+          <Typography variant="h4" component="h1" gutterBottom>
+            {event.title}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+            {event.date} | {event.time} | {event.location}
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, mb: 3, flexWrap: 'wrap' }}>
+            {(event.tags || []).map((tag, index) => (
+              <Chip
+                key={index}
+                label={tag}
+                color="primary"
+                variant="outlined"
+              />
+            ))}
+          </Box>
+          <Divider sx={{ my: 3 }} />
+          <Typography variant="h6" gutterBottom>
+            Presenter: {event.presenter}
+          </Typography>
+          <Typography variant="body1" paragraph>
+            {event.presenterBio}
+          </Typography>
+          <Divider sx={{ my: 3 }} />
+          <Typography variant="h6" gutterBottom>
+            Abstract
+          </Typography>
+          <Typography variant="body1" paragraph>
+            {event.abstract}
+          </Typography>
+          <Box sx={{ mt: 4 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              href={event.paperLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ mr: 2 }}
+            >
+              View Paper
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              href={event.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Join Meeting
+            </Button>
+          </Box>
+        </Box>
+      ) : (
+        <Typography>Event not found</Typography>
+      )}
+    </Container>
   );
 };
 
