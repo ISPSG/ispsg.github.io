@@ -1,142 +1,220 @@
 # ISPSG Website
 
-This is the official website for the ISPSG (Information Systems Papaer Sharing Group) built with React and Material-UI.
+This is the official website for the ISPSG (Information Systems Paper Sharing Group) built with React and Material-UI.
 
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/ispsg/ispsg.github.io.git
 cd ispsg.github.io
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm start
 ```
 
-## Add a new feature
+## Add a New Feature
 
-All team members contribute code changes via Pull Requests. Deployment is handled exclusively by Austin after a PR is successfully merged.
+### 1. Sync Your Local Repository
 
-**Steps:**
+Before starting new work, ensure your local `main` (or `master`) branch is up-to-date with the remote repository.
 
-1.  **Sync Your Local Repository:**
-    *   Before starting any new work, make sure your local main branch (or master, depending on your repository's naming convention) is up-to-date with the remote repository.
-    *   `git checkout main`
-    *   `git pull origin main`
-2.  **Create a New Branch:**
-    *   Create a new branch off the main branch for your specific task (e.g., a new feature, bug fix). Use a descriptive name.
-    *   `git checkout -b feature/your-feature-name(e.g. git checkout -b feature/add-login-button)` 
-    *   `git checkout -b bugfix/fix-description(e.g. git checkout -b bugfix/fix-issue-1)`
-3.  **Make Your Code Changes:**
-    *   Work on your task in this new branch. Write your code, add tests, update documentation, etc.
+```bash
+git checkout main
+git pull origin main
+```
 
-Sure! Here's the example-inclusive version in English:
+**Example:**  
+Run these commands to synchronize your local branch:
+
+```bash
+git checkout main
+git pull origin main
+```
 
 ---
 
-### 4. **Commit Your Changes:**
+### 2. Create a New Branch
 
-After making some edits, commit your changes with clear, descriptive messages.
+Create a branch off `main` for your task, using a descriptive name.
 
-**Example:**
+```bash
+git checkout -b feature/add-login-button
+```
 
-Suppose you added a login button in `App.js`. You would run:
+*(e.g., "feature/add-login-button")*
+
+or
+
+```bash
+git checkout -b bugfix/fix-issue-1
+```
+
+*(e.g., "bugfix/fix-issue-1")*
+
+**Example:**  
+You want to add a login button, so create:
+
+```bash
+git checkout -b feature/add-login-button
+```
+
+---
+
+### 3. Make Your Code Changes
+
+Develop on your branch: write code, add tests, update documentation, etc.
+
+**Example:**  
+Add a login button in `App.js`:
+
+```jsx
+// App.js
+function App() {
+  return (
+    <div>
+      <h1>Welcome to My App</h1>
+      <button>Login</button>
+    </div>
+  );
+}
+export default App;
+```
+
+---
+
+### 4. Commit Your Changes
+
+Stage and commit your updates with clear descriptions.
 
 ```bash
 git add App.js
 git commit -m "Add login button to homepage"
 ```
 
-If you fixed a bug in `Login.js`, you might do:
+*(for features)*
+
+or
 
 ```bash
 git add Login.js
 git commit -m "Fix null pointer error in login validation"
 ```
 
-**Summary:**  
+*(for bug fixes)*
 
-- To stage specific files:  
+**Example:**  
+Commit the addition of the login button:
 
-  ```bash
-  git add <filename>  # e.g., git add App.js
-  ```
-
-- To commit with a message:  
-
-  ```bash
-  git commit -m "Your descriptive message"
-  ```
+```bash
+git add App.js
+git commit -m "Add login button to homepage"
+```
 
 ---
 
-### 5. **Push Your Branch to GitHub:**
+### 5. Push Your Branch to GitHub
 
-Suppose your branch name is `feature/add-login-button`. You push it with:
+Push your branch with:
 
 ```bash
 git push origin feature/add-login-button
 ```
 
-**Another example:**  
-If your branch is `bugfix/fix-login-error`, do:
+**Example:**  
+For your feature branch:
 
 ```bash
-git push origin bugfix/fix-login-error
+git push origin feature/add-login-button
+```
+
+or for bugfix branch:
+
+```bash
+git push origin bugfix/fix-issue-1
 ```
 
 ---
 
+### 6. Create a Pull Request (PR)
 
-6.  **Create a Pull Request (PR):**
-    *   Go to your repository page on GitHub.
-    *   GitHub will often show a prompt to create a PR for your recently pushed branch. Click that, or navigate to the "Pull requests" tab and click "New pull request".
-    *   **Base Branch:** Ensure the `base` branch is the one you want to merge *into* (usually `main` or `master`).
-    *   **Compare Branch:** Ensure the `compare` branch is your feature/bugfix branch.
-    *   **Title & Description:** Write a clear, informative title for the PR. In the description, explain *what* changes you made and *why*. Reference any relevant issue numbers (e.g., "Closes #123").
-    *   **Reviewers:** Assign appropriate team members to review your code.
-    *   **Labels/Projects (Optional):** Add relevant labels (e.g., `bug`, `feature`, `enhancement`) or assign the PR to a project board if your team uses them.
-    *   Click "Create pull request".
+- Visit your GitHub repository.
+- Click the “Compare & pull request” button OR go to the "Pull Requests" tab and select "New pull request".
+- Set:
 
-7.  **Code Review Process:**
-    *   Your assigned reviewers will examine your code.
-    *   They may leave comments, ask questions, or request changes directly on the PR page.
-    *   Discuss the feedback within the PR comments.
-    *   If changes are needed, make them in your local branch, commit them, and push the updates to the same branch on GitHub (`git push origin feature/your-feature-name`). The PR will automatically update with your new commits.
-    *   Reviewers will re-review and eventually approve the PR when they are satisfied.
+  - **Base branch:** `main`
+  - **Compare branch:** your feature/bugfix branch
 
-8.  **Merging the Pull Request:**
-    *   Once the PR is approved and passes any required checks (like automated tests), a designated repository maintainer or lead (this might be Austin or someone else) will merge your branch into the main branch. **Team members typically do not merge their own PRs.**
+- Fill in:
 
-9.  **Deployment (Handled by Austin):**
-    *   **Important:** After your PR has been successfully reviewed, approved, and **merged into the main branch**, **Austin will handle the deployment process.**
-    *   There is no need for individual team members to trigger or perform any deployment steps. Austin will take the updated code from the main branch and deploy it to the relevant environment(s) according to the team's deployment schedule or process.
+  - **Title:** e.g., “Add login button to homepage”
+  - **Description:** Describe what changes you made and why. Refer to issues if applicable (e.g., “Closes #123”).
 
-10.  **Clean Up (Optional but Recommended):**
-     *   After your PR is merged, you can delete your feature/bugfix branch from the remote repository (GitHub usually provides a button for this on the merged PR page).
-     *   You can also delete the branch locally:
-         *   `git checkout main`
-         *   `git pull origin main` (to get the merged changes)
-         *   `git branch -d feature/your-feature-name`
+- Assign reviewers, labels, etc., as needed.
 
-This process ensures that all code changes are reviewed before integration and that deployments are managed centrally and consistently by Austin.
+- Click **"Create pull request"**.
+
+---
+
+### 7. Code Review
+
+- Reviewers examine your PR, leave comments, and ask questions.
+
+- If changes are requested:
+
+  - Make updates locally:
+
+    ```bash
+    git add <files>
+    git commit -m "Address review comments"
+    git push origin feature/add-login-button
+    ```
+
+  - The PR updates automatically.
+
+- Once approved, the reviewer merges your branch.
+
+---
+
+### 8. Merging the PR
+
+- A team member with merge permission (often Austin) will merge the PR into `main`.
+- **You do not need to review codes now.**
+
+---
+
+### 9. Deployment (Handled by Austin)
+
+- After the PR is merged, **Austin will handle deploying**.
+
+---
+
+# Summary
+
+This workflow ensures code quality through reviews and maintains centralized deployment management handled by Austin, promoting a clean and organized project process.
+
+---
 
 ## Project Structure
 
-- `src/pages/` - Contains the main pages (Home, Events, Members)
-- `public/data/` - Contains JSON data files (events.json, members.json)
-- `public/` - Static assets and 404.html for GitHub Pages routing
+- `src/pages/` — Contains main pages (Home, Events, Members)
+- `public/data/` — JSON data files (`events.json`, `members.json`)
+- `public/` — Static assets and `404.html` for GitHub Pages routing
 
 ## Important Notes
 
-- The website uses GitHub Pages for hosting
-- Client-side routing is handled by react-router-dom
-- All data is stored in JSON files in the public/data directory
-- The 404.html file is crucial for proper routing on GitHub Pages
+- The website is hosted on GitHub Pages.
+- Client-side routing uses `react-router-dom`.
+- All data files are stored in `public/data`.
+- The `404.html` is essential for routing on GitHub Pages.
+
