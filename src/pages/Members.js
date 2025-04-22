@@ -1,119 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
+  Container,
+  Typography,
   Grid,
   Card,
   CardContent,
-  Typography,
+  CardActions,
+  Button,
   TextField,
   InputAdornment,
-  Link,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  Chip,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const MemberCard = ({ member }) => (
-  <Card sx={{ 
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    minHeight: '200px',
-    width: '100%'
-  }}>
-    <CardContent sx={{ 
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-      '&:last-child': { pb: 2 }
-    }}>
-      <Typography 
-        variant="h6" 
-        component="div" 
-        gutterBottom
-        sx={{ 
-          fontWeight: 'bold',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: 1,
-          WebkitBoxOrient: 'vertical'
-        }}
-      >
-        {member.name}
-      </Typography>
-      <Typography 
-        color="text.secondary" 
-        gutterBottom
-        sx={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: 1,
-          WebkitBoxOrient: 'vertical'
-        }}
-      >
-        {member.role}
-      </Typography>
-      <Typography 
-        color="text.secondary" 
-        gutterBottom
-        sx={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: 1,
-          WebkitBoxOrient: 'vertical'
-        }}
-      >
-        {member.school}
-      </Typography>
-      <Typography 
-        variant="body2" 
-        paragraph
-        sx={{
-          flexGrow: 1,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical'
-        }}
-      >
-        Research: {member.research}
-      </Typography>
-      <Link 
-        href={member.website} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        sx={{ 
-          mt: 'auto',
-          textDecoration: 'none',
-          '&:hover': {
-            textDecoration: 'underline'
-          }
-        }}
-      >
-        Personal Website
-      </Link>
-    </CardContent>
-  </Card>
-);
-
 const Members = () => {
   const [members, setMembers] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [roleFilter, setRoleFilter] = useState('');
-  const [schoolFilter, setSchoolFilter] = useState('');
-  const [researchFilter, setResearchFilter] = useState('');
 
   useEffect(() => {
-    const fetchMembers = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch(`${process.env.PUBLIC_URL}/data/members.json`);
         if (!response.ok) {
@@ -121,6 +31,7 @@ const Members = () => {
         }
         const data = await response.json();
         setMembers(data.members);
+        setFilteredMembers(data.members);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -128,24 +39,18 @@ const Members = () => {
       }
     };
 
-    fetchMembers();
+    fetchData();
   }, []);
 
-  // Get unique values for filters
-  const roles = [...new Set(members.map(member => member.role))];
-  const schools = [...new Set(members.map(member => member.school))];
-  const researchAreas = [...new Set(members.map(member => member.research))];
-
-  const filteredMembers = members.filter((member) => {
-    const matchesSearch = Object.values(member).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const filtered = members.filter(member =>
+      member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      member.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      member.school.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      member.research.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    const matchesRole = !roleFilter || member.role === roleFilter;
-    const matchesSchool = !schoolFilter || member.school === schoolFilter;
-    const matchesResearch = !researchFilter || member.research === researchFilter;
-
-    return matchesSearch && matchesRole && matchesSchool && matchesResearch;
-  });
+    setFilteredMembers(filtered);
+  }, [searchTerm, members]);
 
   if (loading) {
     return (
@@ -164,80 +69,72 @@ const Members = () => {
   }
 
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Group Members
+        Our Members
       </Typography>
-      <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Search members..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ flex: 1, minWidth: 200 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>Role</InputLabel>
-          <Select
-            value={roleFilter}
-            label="Role"
-            onChange={(e) => setRoleFilter(e.target.value)}
-          >
-            <MenuItem value="">All Roles</MenuItem>
-            {roles.map((role) => (
-              <MenuItem key={role} value={role}>{role}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>School</InputLabel>
-          <Select
-            value={schoolFilter}
-            label="School"
-            onChange={(e) => setSchoolFilter(e.target.value)}
-          >
-            <MenuItem value="">All Schools</MenuItem>
-            {schools.map((school) => (
-              <MenuItem key={school} value={school}>{school}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>Research Area</InputLabel>
-          <Select
-            value={researchFilter}
-            label="Research Area"
-            onChange={(e) => setResearchFilter(e.target.value)}
-          >
-            <MenuItem value="">All Research Areas</MenuItem>
-            {researchAreas.map((area) => (
-              <MenuItem key={area} value={area}>{area}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
-      {filteredMembers.length === 0 ? (
-        <Typography sx={{ textAlign: 'center', mt: 4 }}>
-          No members found matching the selected criteria.
-        </Typography>
-      ) : (
-        <Grid container spacing={3}>
-          {filteredMembers.map((member) => (
-            <Grid item xs={12} sm={6} md={3} key={member.id} sx={{ display: 'flex' }}>
-              <MemberCard member={member} />
-            </Grid>
-          ))}
-        </Grid>
-      )}
-    </Box>
+
+      <TextField
+        fullWidth
+        variant="outlined"
+        placeholder="Search members..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        sx={{ mb: 4 }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      <Grid container spacing={4}>
+        {filteredMembers.map((member) => (
+          <Grid item xs={12} sm={6} md={4} key={member.id}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" gutterBottom>
+                  {member.name}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+                  {member.role}
+                </Typography>
+                <Typography variant="body2" paragraph>
+                  {member.school}
+                </Typography>
+                <Chip
+                  label={member.research}
+                  size="small"
+                  sx={{ mb: 2 }}
+                />
+              </CardContent>
+              <CardActions>
+                <Button
+                  component={Link}
+                  to={`/members/${member.id}`}
+                  size="small"
+                  color="primary"
+                >
+                  View Details
+                </Button>
+                {member.website && (
+                  <Button
+                    href={member.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                  >
+                    Visit Website
+                  </Button>
+                )}
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

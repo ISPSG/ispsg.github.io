@@ -4,6 +4,8 @@ import { AppBar, Toolbar, Typography, Container, Box, Paper } from '@mui/materia
 import Home from './pages/Home';
 import Events from './pages/Events';
 import Members from './pages/Members';
+import EventDetail from './pages/EventDetail';
+import MemberDetail from './pages/MemberDetail';
 
 function App() {
   return (
@@ -29,7 +31,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/members" element={<Members />} />
+            <Route path="/members/:memberId" element={<MemberDetail />} />
           </Routes>
         </Container>
         <Paper 

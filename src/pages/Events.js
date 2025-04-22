@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Paper,
@@ -19,6 +20,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 
 const Events = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -58,6 +60,10 @@ const Events = () => {
 
     return matchesSearch && matchesDate && matchesPresenter;
   });
+
+  const handleRowClick = (eventId) => {
+    navigate(`/events/${eventId}`);
+  };
 
   if (loading) {
     return (
@@ -140,12 +146,21 @@ const Events = () => {
             </TableHead>
             <TableBody>
               {filteredEvents.map((event) => (
-                <TableRow key={event.id}>
+                <TableRow 
+                  key={event.id}
+                  onClick={() => handleRowClick(event.id)}
+                  sx={{ 
+                    cursor: 'pointer',
+                    '&:hover': {
+                      backgroundColor: 'action.hover',
+                    },
+                  }}
+                >
                   <TableCell>{event.date}</TableCell>
                   <TableCell>{event.presenter}</TableCell>
                   <TableCell>{event.title}</TableCell>
                   <TableCell>
-                    <a href={event.paperLink} target="_blank" rel="noopener noreferrer">
+                    <a href={event.paperLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
                       View Paper
                     </a>
                   </TableCell>
