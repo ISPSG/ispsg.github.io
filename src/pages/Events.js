@@ -16,11 +16,13 @@ import {
   Select,
   MenuItem,
   Container,
+  Button,
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Events = () => {
   const navigate = useNavigate();
@@ -70,6 +72,13 @@ const Events = () => {
 
   const handleRowClick = (eventId) => {
     navigate(`/events/${eventId}`);
+  };
+
+  const handleReset = () => {
+    setSearchTerm('');
+    setStartDate(null);
+    setEndDate(null);
+    setPresenterFilter('');
   };
 
   if (loading) {
@@ -136,6 +145,14 @@ const Events = () => {
             ))}
           </Select>
         </FormControl>
+        <Button
+          variant="outlined"
+          startIcon={<ClearIcon />}
+          onClick={handleReset}
+          sx={{ minWidth: 120 }}
+        >
+          Reset
+        </Button>
       </Box>
       {filteredEvents.length === 0 ? (
         <Typography sx={{ textAlign: 'center', mt: 4 }}>

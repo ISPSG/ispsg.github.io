@@ -23,6 +23,7 @@ import {
   TableSortLabel,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
@@ -76,12 +77,6 @@ const Members = () => {
     setFilteredMembers(filtered);
   }, [searchTerm, members, sortBy, sortOrder]);
 
-  const handleViewModeChange = (event, newViewMode) => {
-    if (newViewMode !== null) {
-      setViewMode(newViewMode);
-    }
-  };
-
   const handleSort = (column) => {
     if (sortBy === column) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -89,6 +84,12 @@ const Members = () => {
       setSortBy(column);
       setSortOrder('asc');
     }
+  };
+
+  const handleReset = () => {
+    setSearchTerm('');
+    setSortBy('name');
+    setSortOrder('asc');
   };
 
   if (loading) {
@@ -129,10 +130,18 @@ const Members = () => {
             ),
           }}
         />
+        <Button
+          variant="outlined"
+          startIcon={<ClearIcon />}
+          onClick={handleReset}
+          sx={{ minWidth: 120 }}
+        >
+          Reset
+        </Button>
         <ToggleButtonGroup
           value={viewMode}
           exclusive
-          onChange={handleViewModeChange}
+          onChange={(e, newMode) => setViewMode(newMode)}
           aria-label="view mode"
         >
           <ToggleButton value="grid" aria-label="grid view">

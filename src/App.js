@@ -9,6 +9,12 @@ import MemberDetail from './pages/MemberDetail';
 import theme from './theme';
 
 function App() {
+  const lastUpdateDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -47,9 +53,14 @@ function App() {
             }}
           >
             <Container maxWidth="lg">
-              <Typography variant="body2" color="text.secondary" align="center">
-                © 2025 ISPSG. All rights reserved.
-              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="body2" color="text.secondary">
+                  © 2025 ISPSG. All rights reserved.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Last updated: {lastUpdateDate}
+                </Typography>
+              </Box>
             </Container>
           </Paper>
         </Box>
