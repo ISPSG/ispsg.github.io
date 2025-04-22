@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Box>
       <Typography variant="h3" component="h1" gutterBottom>
-        Welcome to Our Paper Reading Group
+        Welcome to Our Paper Sharing Group 
       </Typography>
       <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
         <Typography variant="h5" gutterBottom>

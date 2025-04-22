@@ -1,6 +1,6 @@
 # ISPSG Website
 
-This is the official website for the ISPSG (Information Security and Privacy Study Group) built with React and Material-UI.
+This is the official website for the ISPSG (Information Systems Papaer Sharing Group) built with React and Material-UI.
 
 ## Getting Started
 
