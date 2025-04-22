@@ -1,0 +1,84 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "role": "PhD Student",
+      "school": "Stanford University",
+      "research": "Natural Language Processing",
+      "website": "https://johndoe.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "role": "Postdoctoral Researcher",
+      "school": "MIT",
+      "research": "Computer Vision",
+      "website": "https://janesmith.com"
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "role": "PhD Student",
+      "school": "UC Berkeley",
+      "research": "Machine Learning",
+      "website": "https://alicejohnson.com"
+    },
+    {
+      "id": 4,
+      "name": "Bob Wilson",
+      "role": "Assistant Professor",
+      "school": "Carnegie Mellon University",
+      "research": "Robotics",
+      "website": "https://bobwilson.com"
+    },
+    {
+      "id": 5,
+      "name": "Carol Davis",
+      "role": "PhD Student",
+      "school": "University of Washington",
+      "research": "Human-Computer Interaction",
+      "website": "https://caroldavis.com"
+    },
+    {
+      "id": 6,
+      "name": "David Lee",
+      "role": "Postdoctoral Researcher",
+      "school": "University of Toronto",
+      "research": "Computer Graphics",
+      "website": "https://davidlee.com"
+    },
+    {
+      "id": 7,
+      "name": "Emma Brown",
+      "role": "PhD Student",
+      "school": "Harvard University",
+      "research": "Computational Biology",
+      "website": "https://emmabrown.com"
+    },
+    {
+      "id": 8,
+      "name": "Frank Miller",
+      "role": "Associate Professor",
+      "school": "University of Illinois",
+      "research": "Computer Architecture",
+      "website": "https://frankmiller.com"
+    },
+    {
+      "id": 9,
+      "name": "Grace Taylor",
+      "role": "PhD Student",
+      "school": "Princeton University",
+      "research": "Theoretical Computer Science",
+      "website": "https://gracetaylor.com"
+    },
+    {
+      "id": 10,
+      "name": "Henry Clark",
+      "role": "Postdoctoral Researcher",
+      "school": "Yale University",
+      "research": "Quantum Computing",
+      "website": "https://henryclark.com"
+    }
+  ]
+} 
