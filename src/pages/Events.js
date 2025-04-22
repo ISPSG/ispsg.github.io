@@ -17,7 +17,16 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LicenseInfo } from '@mui/x-license';
 import SearchIcon from '@mui/icons-material/Search';
+
+// Set the license key for MUI X v8
+LicenseInfo.setLicenseKey(
+  'YOUR_LICENSE_KEY'
+);
 
 const Events = () => {
   const navigate = useNavigate();
@@ -25,7 +34,8 @@ const Events = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [dateFilter, setDateFilter] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [presenterFilter, setPresenterFilter] = useState('');
 
   useEffect(() => {
@@ -55,7 +65,11 @@ const Events = () => {
     const matchesSearch = Object.values(event).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
-    const matchesDate = !dateFilter || event.date === dateFilter;
+    
+    const eventDate = new Date(event.date);
+    const matchesDate = (!startDate || !endDate) || 
+      (eventDate >= startDate && eventDate <= endDate);
+    
     const matchesPresenter = !presenterFilter || event.presenter === presenterFilter;
 
     return matchesSearch && matchesDate && matchesPresenter;
@@ -102,19 +116,20 @@ const Events = () => {
             ),
           }}
         />
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>Date</InputLabel>
-          <Select
-            value={dateFilter}
-            label="Date"
-            onChange={(e) => setDateFilter(e.target.value)}
-          >
-            <MenuItem value="">All Dates</MenuItem>
-            {dates.map((date) => (
-              <MenuItem key={date} value={date}>{date}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Start Date"
+            value={startDate}
+            onChange={(newValue) => setStartDate(newValue)}
+            sx={{ minWidth: 200 }}
+          />
+          <DatePicker
+            label="End Date"
+            value={endDate}
+            onChange={(newValue) => setEndDate(newValue)}
+            sx={{ minWidth: 200 }}
+          />
+        </LocalizationProvider>
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel>Presenter</InputLabel>
           <Select
