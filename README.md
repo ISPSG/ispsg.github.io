@@ -20,26 +20,44 @@ npm install
 npm start
 ```
 
-## Deployment
+## Add a new feature
 
-To deploy the website to GitHub Pages:
-
-1. Make sure you have the latest changes:
-```bash
-git pull
-```
-
-2. Build the project:
-```bash
-npm run build
-```
-
-3. Deploy to GitHub Pages:
-```bash
-npm run deploy
-```
-
-The website will be available at [https://ispsg.github.io](https://ispsg.github.io)
+Sync Your Local Repository:
+Before starting any new work, make sure your local main branch (or master, depending on your repository’s naming convention) is up-to-date with the remote repository.
+git checkout main
+git pull origin main
+Create a New Branch:
+Create a new branch off the main branch for your specific task (e.g., a new feature, bug fix). Use a descriptive name.
+git checkout -b feature/your-feature-name or git checkout -b bugfix/fix-description
+Make Your Code Changes:
+Work on your task in this new branch. Write your code, add tests, update documentation, etc.
+Commit Your Changes:
+Commit your work frequently with clear, concise commit messages explaining what each commit does.
+git add . (or add specific files)
+git commit -m "Add feature X" or git commit -m "Fix bug Y in component Z"
+Push Your Branch to GitHub:
+Push your local branch to the remote repository on GitHub.
+git push origin feature/your-feature-name
+Create a Pull Request (PR):
+Go to your repository page on GitHub.
+GitHub will often show a prompt to create a PR for your recently pushed branch. Click that, or navigate to the “Pull requests” tab and click “New pull request”.
+Base Branch: Ensure the base branch is the one you want to merge into (usually main or master).
+Compare Branch: Ensure the compare branch is your feature/bugfix branch.
+Title & Description: Write a clear, informative title for the PR. In the description, explain what changes you made and why. Reference any relevant issue numbers (e.g., “Closes #123”).
+Reviewers: Assign appropriate team members to review your code.
+Labels/Projects (Optional): Add relevant labels (e.g., bug, feature, enhancement) or assign the PR to a project board if your team uses them.
+Click “Create pull request”.
+Code Review Process:
+Your assigned reviewers will examine your code.
+They may leave comments, ask questions, or request changes directly on the PR page.
+Discuss the feedback within the PR comments.
+If changes are needed, make them in your local branch, commit them, and push the updates to the same branch on GitHub (git push origin feature/your-feature-name). The PR will automatically update with your new commits.
+Reviewers will re-review and eventually approve the PR when they are satisfied.
+Merging the Pull Request:
+Once the PR is approved and passes any required checks (like automated tests), a designated repository maintainer or lead (this might be Austin or someone else) will merge your branch into the main branch. Team members typically do not merge their own PRs.
+Deployment (Handled by Austin):
+Important: After your PR has been successfully reviewed, approved, and merged into the main branch, Austin will handle the deployment process.
+There is no need for individual team members to trigger or perform any deployment steps. Austin will take the updated code from the main branch and deploy it to the relevant environment(s) according to the team’s deployment schedule or process.
 
 ## Project Structure
 
