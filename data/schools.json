@@ -1,0 +1,81 @@
+{
+  "schools": [
+    {
+      "name": "Stanford University",
+      "location": {
+        "lat": 37.4275,
+        "lng": -122.1697
+      }
+    },
+    {
+      "name": "MIT",
+      "location": {
+        "lat": 42.3601,
+        "lng": -71.0942
+      }
+    },
+    {
+      "name": "UC Berkeley",
+      "location": {
+        "lat": 37.8719,
+        "lng": -122.2585
+      }
+    },
+    {
+      "name": "Carnegie Mellon University",
+      "location": {
+        "lat": 40.4433,
+        "lng": -79.9436
+      }
+    },
+    {
+      "name": "University of Washington",
+      "location": {
+        "lat": 47.6553,
+        "lng": -122.3035
+      }
+    },
+    {
+      "name": "University of Toronto",
+      "location": {
+        "lat": 43.6629,
+        "lng": -79.3957
+      }
+    },
+    {
+      "name": "Harvard University",
+      "location": {
+        "lat": 42.3744,
+        "lng": -71.1169
+      }
+    },
+    {
+      "name": "University of Illinois",
+      "location": {
+        "lat": 40.1020,
+        "lng": -88.2272
+      }
+    },
+    {
+      "name": "Princeton University",
+      "location": {
+        "lat": 40.3437,
+        "lng": -74.6553
+      }
+    },
+    {
+      "name": "Yale University",
+      "location": {
+        "lat": 41.3163,
+        "lng": -72.9223
+      }
+    },
+    {
+      "name": "Hong Kong University of Science and Technology",
+      "location": {
+        "lat": 22.3364,
+        "lng": 114.2620
+      }
+    }
+  ]
+} 

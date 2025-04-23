@@ -89,6 +89,24 @@
       "research": "Quantum Computing",
       "website": "https://henryclark.com",
       "bio": "Henry Clark is a Postdoctoral Researcher in Quantum Computing at Yale University. His work focuses on developing quantum algorithms and error correction techniques. He has contributed to several breakthroughs in quantum computing and has published in Nature and Physical Review Letters."
+    },
+    {
+      "id": 11,
+      "name": "Wei Chen",
+      "role": "PhD Student",
+      "school": "Hong Kong University of Science and Technology",
+      "research": "Machine Learning",
+      "website": "https://weichen.com",
+      "bio": "Wei Chen is a PhD student at HKUST, specializing in machine learning and its applications in computer vision. His research focuses on developing efficient deep learning models for real-world applications. He has published in top-tier conferences including CVPR and ICCV."
+    },
+    {
+      "id": 12,
+      "name": "Ying Zhang",
+      "role": "Assistant Professor",
+      "school": "Hong Kong University of Science and Technology",
+      "research": "Natural Language Processing",
+      "website": "https://yingzhang.com",
+      "bio": "Ying Zhang is an Assistant Professor at HKUST, focusing on natural language processing and multilingual models. Her research has contributed to advancements in machine translation and cross-lingual understanding. She has received several awards for her work in NLP and has published in ACL and EMNLP."
     }
   ]
 } 
