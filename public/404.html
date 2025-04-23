@@ -1,30 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>ISPSG</title>
-    <script type="text/javascript">
-
-      var pathSegmentsToKeep = 1;
-
-      var l = window.location;
-      var path = l.pathname;
-      
-      // If we're at the root path, redirect to Home
-      if (path === '/' || path === '/ISRG/' || path === '/isrg/') {
-        l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/ISRG/#/');
-      } else {
-        // Handle other paths (404 cases)
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash
-        );
-      }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="ISPSG - International Society for Privacy and Security in Genomics" />
+    <title>ISPSG - Page Not Found</title>
+    <script>
+      // Redirect to the React app's root
+      window.location.href = window.location.origin + '/#/';
     </script>
   </head>
   <body>
+    <noscript>
+      <h1>Page Not Found</h1>
+      <p>The page you are looking for doesn't exist or has been moved.</p>
+      <p><a href="/">Go to Homepage</a></p>
+    </noscript>
   </body>
 </html> 

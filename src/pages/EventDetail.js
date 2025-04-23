@@ -142,8 +142,37 @@ const EventDetail = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Join Meeting
+              Meeting Notes
             </Button>
+          </Box>
+          <Divider sx={{ my: 3 }} />
+          <Typography variant="h6" gutterBottom>
+            Participants
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            {event.participants.map((participantId) => {
+              const participant = getMemberById(participantId);
+              return participant ? (
+                <Box key={participantId} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography 
+                    component={Link} 
+                    to={`/members/${participantId}`}
+                    sx={{ 
+                      textDecoration: 'none',
+                      color: 'primary.main',
+                      '&:hover': {
+                        textDecoration: 'underline'
+                      }
+                    }}
+                  >
+                    {participant.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ({participant.role}, {participant.school})
+                  </Typography>
+                </Box>
+              ) : null;
+            })}
           </Box>
         </Box>
       ) : (

@@ -21,6 +21,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  Skeleton,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -45,8 +46,11 @@ const Members = () => {
           throw new Error('Failed to fetch members');
         }
         const data = await response.json();
-        setMembers(data.members);
-        setFilteredMembers(data.members);
+        const sortedMembers = [...data.members].sort((a, b) => 
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
+        setMembers(sortedMembers);
+        setFilteredMembers(sortedMembers);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -58,24 +62,26 @@ const Members = () => {
   }, []);
 
   useEffect(() => {
-    let filtered = members.filter(member =>
-      member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.school.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.research.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (!loading) {
+      let filtered = members.filter(member =>
+        member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member.school.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member.research.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-    // Sort the filtered results
-    filtered.sort((a, b) => {
-      const aValue = a[sortBy].toLowerCase();
-      const bValue = b[sortBy].toLowerCase();
-      return sortOrder === 'asc' 
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
-    });
+      // Sort the filtered results
+      filtered.sort((a, b) => {
+        const aValue = a[sortBy].toLowerCase();
+        const bValue = b[sortBy].toLowerCase();
+        return sortOrder === 'asc' 
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      });
 
-    setFilteredMembers(filtered);
-  }, [searchTerm, members, sortBy, sortOrder]);
+      setFilteredMembers(filtered);
+    }
+  }, [searchTerm, members, sortBy, sortOrder, loading]);
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -92,13 +98,56 @@ const Members = () => {
     setSortOrder('asc');
   };
 
-  if (loading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-        <Typography>Loading members...</Typography>
-      </Box>
-    );
-  }
+  const renderLoadingSkeleton = () => {
+    if (viewMode === 'grid') {
+      return (
+        <Grid container spacing={3} justifyContent="center">
+          {[...Array(8)].map((_, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Card sx={{ height: '100%' }}>
+                <CardContent>
+                  <Skeleton variant="text" width="60%" height={40} />
+                  <Skeleton variant="text" width="40%" />
+                  <Skeleton variant="text" width="80%" />
+                  <Skeleton variant="rectangular" width="100%" height={32} sx={{ mt: 2 }} />
+                </CardContent>
+                <CardActions>
+                  <Skeleton variant="rectangular" width={100} height={36} />
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      );
+    } else {
+      return (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>School</TableCell>
+                <TableCell>Research Area</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {[...Array(5)].map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell><Skeleton variant="text" /></TableCell>
+                  <TableCell><Skeleton variant="text" /></TableCell>
+                  <TableCell><Skeleton variant="text" /></TableCell>
+                  <TableCell><Skeleton variant="text" /></TableCell>
+                  <TableCell align="right"><Skeleton variant="rectangular" width={100} height={36} /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+    }
+  };
 
   if (error) {
     return (
@@ -153,7 +202,9 @@ const Members = () => {
         </ToggleButtonGroup>
       </Box>
 
-      {viewMode === 'grid' ? (
+      {loading ? (
+        renderLoadingSkeleton()
+      ) : viewMode === 'grid' ? (
         <Grid container spacing={3} justifyContent="center">
           {filteredMembers.map((member) => (
             <Grid item xs={12} sm={6} md={3} key={member.id}>
@@ -246,7 +297,7 @@ const Members = () => {
                     Research Area
                   </TableSortLabel>
                 </TableCell>
-                <TableCell align="right">Actions</TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -255,32 +306,16 @@ const Members = () => {
                   <TableCell>{member.name}</TableCell>
                   <TableCell>{member.role}</TableCell>
                   <TableCell>{member.school}</TableCell>
-                  <TableCell>
-                    <Chip
-                      label={member.research}
-                      size="small"
-                    />
-                  </TableCell>
+                  <TableCell>{member.research}</TableCell>
                   <TableCell align="right">
                     <Button
                       component={Link}
                       to={`/members/${member.id}`}
                       size="small"
                       color="primary"
-                      sx={{ mr: 1 }}
                     >
                       View Details
                     </Button>
-                    {member.website && (
-                      <Button
-                        href={member.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        size="small"
-                      >
-                        Visit Website
-                      </Button>
-                    )}
                   </TableCell>
                 </TableRow>
               ))}
